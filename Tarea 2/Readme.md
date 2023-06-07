@@ -16,19 +16,16 @@
 Para ejecutar el programa se recomienda instalar las librerias necesarias con el siguiente comando:
 
 ```bash
-python-mvenvvenv
-sourcevenv/bin/activate
-pipinstall-rrequirements.txt
-
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
 ```
-
 
 ## Uso del programa
 
 Aquí va un ejemplo de como se puede usar el programa:
 
 ```bash
-
 python go_back_n.py
 --packet-size 2000 
 --window-size 10
@@ -37,7 +34,5 @@ python go_back_n.py
 --filepath./Tarea1_Redes.pdf
 --server-url anakena.dcc.uchile.cl
  --server-port 1819
-
 ```
 
-De todas formas, todos los parametros tienen un valor por defecto, por lo que se puede ejecutar el programa sin ningun parametro y debería funcionar. (Sin linux, no se tendría el /etc/services por lo que habría que usar otro archivo).
