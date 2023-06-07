@@ -33,6 +33,6 @@ python go_back_n.py
 --loss 0.1
 --filepath./Tarea1_Redes.pdf
 --server-url anakena.dcc.uchile.cl
- --server-port 1819
+--server-port 1819
 ```
 
