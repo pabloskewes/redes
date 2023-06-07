@@ -1,0 +1,6 @@
+Control 1
+Control 2
+*ipynb_checkpoints*
+*pycache*
+venv
+*.zip
