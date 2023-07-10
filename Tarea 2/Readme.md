@@ -1,6 +1,6 @@
 # Tarea 2 - Pablo Skewes
 
-## Contenido del "repositorio"
+## Contenido del repositorio
 
 - jsockets.py (libreria de sockets del curso)
 - go_back_n.py (codigo implementación del protocolo Go-Back-N)
@@ -11,7 +11,7 @@
 - tarea2_pablo_skewes.pdf (preview del notebook en pdf)
 - Imagenes y cliente y servidor hecho por el profesor
 
-## Cómo "instalar" el programa
+## Cómo instalar el programa
 
 Para ejecutar el programa se recomienda instalar las librerias necesarias con el siguiente comando:
 
