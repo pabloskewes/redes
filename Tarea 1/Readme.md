@@ -1,6 +1,6 @@
 # Tarea 1 - Pablo Skewes
 
-## Contenido del "repositorio"
+## Contenido del repositorio
 
 
 - jsockets.py (libreria de sockets del curso)
@@ -13,7 +13,7 @@
 
 
 
-## Cómo "instalar" el programa
+## Cómo instalar el programa
 
 Para ejecutar el programa se recomienda instalar las librerias necesarias con el siguiente comando:
 
