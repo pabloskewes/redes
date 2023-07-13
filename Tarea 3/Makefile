@@ -1,11 +1,18 @@
-run_client:
-	@echo "Running client..."
-	@souce venv/bin/activate && python3 client_echo3_udp.py
+SHELL := /bin/bash
 
-run_server:
+
+client_local:
+	@echo "Running client locally..."
+	@python client_echo3_udp.py 127.0.0.1 1818
+
+client_remote:
+	@echo "Running client remotely..."
+	@python client_echo3_udp.py anakena.dcc.uchile.cl 1818
+
+server:
 	@echo "Running server..."
-	@souce venv/bin/activate && python3 server_echo3_udp.py
+	@python server_echo_udp3.py
 
-run_pirate:
+pirate:
 	@echo "Running pirate..."
-	@souce venv/bin/activate && python3 pirate_echo3_udp.py
+	@python pirate_udp.py $(client_port) $(server_ip) 1818
